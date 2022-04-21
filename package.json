@@ -17,17 +17,24 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.20.2",
+    "@types/ws": "^8.5.3",
     "@vitejs/plugin-vue": "^2.1.0",
     "electron": "18.0.2",
     "electron-builder": "^22.14.5",
+    "mathsass": "^0.11.0",
     "nano-staged": "^0.6.0",
+    "reset-css": "^5.0.1",
+    "sass": "^1.50.1",
     "simple-git-hooks": "^2.7.0",
     "typescript": "^4.6.3",
     "vite": "^2.9.1",
     "vite-plugin-electron": "^0.4.2",
+    "vite-plugin-electron-renderer": "^0.3.3",
     "vite-plugin-resolve": "^2.0.1",
     "vue": "^3.2.31",
-    "vue-tsc": "^0.31.1"
+    "vue-router": "^4.0.14",
+    "vue-tsc": "^0.31.1",
+    "vuex": "^4.0.2"
   },
   "env": {
     "VITE_DEV_SERVER_HOST": "127.0.0.1",
@@ -39,5 +46,9 @@
     "vite",
     "vue3",
     "vue"
-  ]
+  ],
+  "dependencies": {
+    "got": "^12.0.3",
+    "ws": "^8.5.0"
+  }
 }

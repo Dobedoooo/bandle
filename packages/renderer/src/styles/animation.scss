@@ -1,0 +1,21 @@
+@import "spring.scss";
+
+@keyframes panelDown {
+    @for $i from 0 through 100 {
+        #{$i}% {
+            transform: translate3d(0px, lerp(0px, 440px, spring-wobbly($i / 100)), 0px);
+        }
+    }
+}
+
+@keyframes panelUp {
+    0% {
+        transform: translate3d(0px, 440px, 0px);
+    }
+    50% {
+        transform: translate3d(0px, 220px, 0px);
+    }
+    100% {
+        transform: translate3d(0px, 0px, 0px);
+    }
+}

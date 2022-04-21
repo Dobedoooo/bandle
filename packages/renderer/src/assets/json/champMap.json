@@ -1,0 +1,956 @@
+{
+    "1": {
+        "name": "Annie",
+        "sprite": "champion0.png",
+        "x": 336,
+        "y": 0
+    },
+    "2": {
+        "name": "Olaf",
+        "sprite": "champion2.png",
+        "x": 288,
+        "y": 96
+    },
+    "3": {
+        "name": "Galio",
+        "sprite": "champion1.png",
+        "x": 96,
+        "y": 0
+    },
+    "4": {
+        "name": "TwistedFate",
+        "sprite": "champion4.png",
+        "x": 0,
+        "y": 48
+    },
+    "5": {
+        "name": "XinZhao",
+        "sprite": "champion4.png",
+        "x": 336,
+        "y": 96
+    },
+    "6": {
+        "name": "Urgot",
+        "sprite": "champion4.png",
+        "x": 144,
+        "y": 48
+    },
+    "7": {
+        "name": "Leblanc",
+        "sprite": "champion2.png",
+        "x": 144,
+        "y": 0
+    },
+    "8": {
+        "name": "Vladimir",
+        "sprite": "champion4.png",
+        "x": 96,
+        "y": 96
+    },
+    "9": {
+        "name": "Fiddlesticks",
+        "sprite": "champion0.png",
+        "x": 432,
+        "y": 96
+    },
+    "10": {
+        "name": "Kayle",
+        "sprite": "champion1.png",
+        "x": 288,
+        "y": 96
+    },
+    "11": {
+        "name": "MasterYi",
+        "sprite": "champion2.png",
+        "x": 192,
+        "y": 48
+    },
+    "12": {
+        "name": "Alistar",
+        "sprite": "champion0.png",
+        "x": 192,
+        "y": 0
+    },
+    "13": {
+        "name": "Ryze",
+        "sprite": "champion3.png",
+        "x": 144,
+        "y": 48
+    },
+    "14": {
+        "name": "Sion",
+        "sprite": "champion3.png",
+        "x": 144,
+        "y": 96
+    },
+    "15": {
+        "name": "Sivir",
+        "sprite": "champion3.png",
+        "x": 192,
+        "y": 96
+    },
+    "16": {
+        "name": "Soraka",
+        "sprite": "champion3.png",
+        "x": 336,
+        "y": 96
+    },
+    "17": {
+        "name": "Teemo",
+        "sprite": "champion4.png",
+        "x": 240,
+        "y": 0
+    },
+    "18": {
+        "name": "Tristana",
+        "sprite": "champion4.png",
+        "x": 336,
+        "y": 0
+    },
+    "19": {
+        "name": "Warwick",
+        "sprite": "champion4.png",
+        "x": 192,
+        "y": 96
+    },
+    "20": {
+        "name": "Nunu",
+        "sprite": "champion2.png",
+        "x": 240,
+        "y": 96
+    },
+    "21": {
+        "name": "MissFortune",
+        "sprite": "champion2.png",
+        "x": 240,
+        "y": 48
+    },
+    "22": {
+        "name": "Ashe",
+        "sprite": "champion0.png",
+        "x": 432,
+        "y": 0
+    },
+    "23": {
+        "name": "Tryndamere",
+        "sprite": "champion4.png",
+        "x": 432,
+        "y": 0
+    },
+    "24": {
+        "name": "Jax",
+        "sprite": "champion1.png",
+        "x": 288,
+        "y": 48
+    },
+    "25": {
+        "name": "Morgana",
+        "sprite": "champion2.png",
+        "x": 384,
+        "y": 48
+    },
+    "26": {
+        "name": "Zilean",
+        "sprite": "champion5.png",
+        "x": 288,
+        "y": 0
+    },
+    "27": {
+        "name": "Singed",
+        "sprite": "champion3.png",
+        "x": 96,
+        "y": 96
+    },
+    "28": {
+        "name": "Evelynn",
+        "sprite": "champion0.png",
+        "x": 336,
+        "y": 96
+    },
+    "29": {
+        "name": "Twitch",
+        "sprite": "champion4.png",
+        "x": 48,
+        "y": 48
+    },
+    "30": {
+        "name": "Karthus",
+        "sprite": "champion1.png",
+        "x": 144,
+        "y": 96
+    },
+    "31": {
+        "name": "Chogath",
+        "sprite": "champion0.png",
+        "x": 432,
+        "y": 48
+    },
+    "32": {
+        "name": "Amumu",
+        "sprite": "champion0.png",
+        "x": 240,
+        "y": 0
+    },
+    "33": {
+        "name": "Rammus",
+        "sprite": "champion3.png",
+        "x": 240,
+        "y": 0
+    },
+    "34": {
+        "name": "Anivia",
+        "sprite": "champion0.png",
+        "x": 288,
+        "y": 0
+    },
+    "35": {
+        "name": "Shaco",
+        "sprite": "champion3.png",
+        "x": 432,
+        "y": 48
+    },
+    "36": {
+        "name": "DrMundo",
+        "sprite": "champion0.png",
+        "x": 192,
+        "y": 96
+    },
+    "37": {
+        "name": "Sona",
+        "sprite": "champion3.png",
+        "x": 288,
+        "y": 96
+    },
+    "38": {
+        "name": "Kassadin",
+        "sprite": "champion1.png",
+        "x": 192,
+        "y": 96
+    },
+    "39": {
+        "name": "Irelia",
+        "sprite": "champion1.png",
+        "x": 96,
+        "y": 48
+    },
+    "40": {
+        "name": "Janna",
+        "sprite": "champion1.png",
+        "x": 192,
+        "y": 48
+    },
+    "41": {
+        "name": "Gangplank",
+        "sprite": "champion1.png",
+        "x": 144,
+        "y": 0
+    },
+    "42": {
+        "name": "Corki",
+        "sprite": "champion0.png",
+        "x": 0,
+        "y": 96
+    },
+    "43": {
+        "name": "Karma",
+        "sprite": "champion1.png",
+        "x": 96,
+        "y": 96
+    },
+    "44": {
+        "name": "Taric",
+        "sprite": "champion4.png",
+        "x": 192,
+        "y": 0
+    },
+    "45": {
+        "name": "Veigar",
+        "sprite": "champion4.png",
+        "x": 288,
+        "y": 48
+    },
+    "48": {
+        "name": "Trundle",
+        "sprite": "champion4.png",
+        "x": 384,
+        "y": 0
+    },
+    "50": {
+        "name": "Swain",
+        "sprite": "champion3.png",
+        "x": 384,
+        "y": 96
+    },
+    "51": {
+        "name": "Caitlyn",
+        "sprite": "champion0.png",
+        "x": 288,
+        "y": 48
+    },
+    "53": {
+        "name": "Blitzcrank",
+        "sprite": "champion0.png",
+        "x": 144,
+        "y": 48
+    },
+    "54": {
+        "name": "Malphite",
+        "sprite": "champion2.png",
+        "x": 48,
+        "y": 48
+    },
+    "55": {
+        "name": "Katarina",
+        "sprite": "champion1.png",
+        "x": 240,
+        "y": 96
+    },
+    "56": {
+        "name": "Nocturne",
+        "sprite": "champion2.png",
+        "x": 192,
+        "y": 96
+    },
+    "57": {
+        "name": "Maokai",
+        "sprite": "champion2.png",
+        "x": 144,
+        "y": 48
+    },
+    "58": {
+        "name": "Renekton",
+        "sprite": "champion3.png",
+        "x": 432,
+        "y": 0
+    },
+    "59": {
+        "name": "JarvanIV",
+        "sprite": "champion1.png",
+        "x": 240,
+        "y": 48
+    },
+    "60": {
+        "name": "Elise",
+        "sprite": "champion0.png",
+        "x": 288,
+        "y": 96
+    },
+    "61": {
+        "name": "Orianna",
+        "sprite": "champion2.png",
+        "x": 336,
+        "y": 96
+    },
+    "62": {
+        "name": "MonkeyKing",
+        "sprite": "champion2.png",
+        "x": 288,
+        "y": 48
+    },
+    "63": {
+        "name": "Brand",
+        "sprite": "champion0.png",
+        "x": 192,
+        "y": 48
+    },
+    "64": {
+        "name": "LeeSin",
+        "sprite": "champion2.png",
+        "x": 192,
+        "y": 0
+    },
+    "67": {
+        "name": "Vayne",
+        "sprite": "champion4.png",
+        "x": 240,
+        "y": 48
+    },
+    "68": {
+        "name": "Rumble",
+        "sprite": "champion3.png",
+        "x": 96,
+        "y": 48
+    },
+    "69": {
+        "name": "Cassiopeia",
+        "sprite": "champion0.png",
+        "x": 384,
+        "y": 48
+    },
+    "72": {
+        "name": "Skarner",
+        "sprite": "champion3.png",
+        "x": 240,
+        "y": 96
+    },
+    "74": {
+        "name": "Heimerdinger",
+        "sprite": "champion1.png",
+        "x": 0,
+        "y": 48
+    },
+    "75": {
+        "name": "Nasus",
+        "sprite": "champion2.png",
+        "x": 0,
+        "y": 96
+    },
+    "76": {
+        "name": "Nidalee",
+        "sprite": "champion2.png",
+        "x": 144,
+        "y": 96
+    },
+    "77": {
+        "name": "Udyr",
+        "sprite": "champion4.png",
+        "x": 96,
+        "y": 48
+    },
+    "78": {
+        "name": "Poppy",
+        "sprite": "champion3.png",
+        "x": 0,
+        "y": 0
+    },
+    "79": {
+        "name": "Gragas",
+        "sprite": "champion1.png",
+        "x": 288,
+        "y": 0
+    },
+    "80": {
+        "name": "Pantheon",
+        "sprite": "champion2.png",
+        "x": 432,
+        "y": 96
+    },
+    "81": {
+        "name": "Ezreal",
+        "sprite": "champion0.png",
+        "x": 384,
+        "y": 96
+    },
+    "82": {
+        "name": "Mordekaiser",
+        "sprite": "champion2.png",
+        "x": 336,
+        "y": 48
+    },
+    "83": {
+        "name": "Yorick",
+        "sprite": "champion5.png",
+        "x": 0,
+        "y": 0
+    },
+    "84": {
+        "name": "Akali",
+        "sprite": "champion0.png",
+        "x": 96,
+        "y": 0
+    },
+    "85": {
+        "name": "Kennen",
+        "sprite": "champion1.png",
+        "x": 384,
+        "y": 96
+    },
+    "86": {
+        "name": "Garen",
+        "sprite": "champion1.png",
+        "x": 192,
+        "y": 0
+    },
+    "89": {
+        "name": "Leona",
+        "sprite": "champion2.png",
+        "x": 240,
+        "y": 0
+    },
+    "90": {
+        "name": "Malzahar",
+        "sprite": "champion2.png",
+        "x": 96,
+        "y": 48
+    },
+    "91": {
+        "name": "Talon",
+        "sprite": "champion4.png",
+        "x": 144,
+        "y": 0
+    },
+    "92": {
+        "name": "Riven",
+        "sprite": "champion3.png",
+        "x": 48,
+        "y": 48
+    },
+    "96": {
+        "name": "KogMaw",
+        "sprite": "champion2.png",
+        "x": 96,
+        "y": 0
+    },
+    "98": {
+        "name": "Shen",
+        "sprite": "champion3.png",
+        "x": 0,
+        "y": 96
+    },
+    "99": {
+        "name": "Lux",
+        "sprite": "champion2.png",
+        "x": 0,
+        "y": 48
+    },
+    "101": {
+        "name": "Xerath",
+        "sprite": "champion4.png",
+        "x": 288,
+        "y": 96
+    },
+    "102": {
+        "name": "Shyvana",
+        "sprite": "champion3.png",
+        "x": 48,
+        "y": 96
+    },
+    "103": {
+        "name": "Ahri",
+        "sprite": "champion0.png",
+        "x": 48,
+        "y": 0
+    },
+    "104": {
+        "name": "Graves",
+        "sprite": "champion1.png",
+        "x": 336,
+        "y": 0
+    },
+    "105": {
+        "name": "Fizz",
+        "sprite": "champion1.png",
+        "x": 48,
+        "y": 0
+    },
+    "106": {
+        "name": "Volibear",
+        "sprite": "champion4.png",
+        "x": 144,
+        "y": 96
+    },
+    "107": {
+        "name": "Rengar",
+        "sprite": "champion3.png",
+        "x": 0,
+        "y": 48
+    },
+    "110": {
+        "name": "Varus",
+        "sprite": "champion4.png",
+        "x": 192,
+        "y": 48
+    },
+    "111": {
+        "name": "Nautilus",
+        "sprite": "champion2.png",
+        "x": 48,
+        "y": 96
+    },
+    "112": {
+        "name": "Viktor",
+        "sprite": "champion4.png",
+        "x": 48,
+        "y": 96
+    },
+    "113": {
+        "name": "Sejuani",
+        "sprite": "champion3.png",
+        "x": 240,
+        "y": 48
+    },
+    "114": {
+        "name": "Fiora",
+        "sprite": "champion1.png",
+        "x": 0,
+        "y": 0
+    },
+    "115": {
+        "name": "Ziggs",
+        "sprite": "champion5.png",
+        "x": 240,
+        "y": 0
+    },
+    "117": {
+        "name": "Lulu",
+        "sprite": "champion2.png",
+        "x": 432,
+        "y": 0
+    },
+    "119": {
+        "name": "Draven",
+        "sprite": "champion0.png",
+        "x": 144,
+        "y": 96
+    },
+    "120": {
+        "name": "Hecarim",
+        "sprite": "champion1.png",
+        "x": 432,
+        "y": 0
+    },
+    "121": {
+        "name": "Khazix",
+        "sprite": "champion1.png",
+        "x": 432,
+        "y": 96
+    },
+    "122": {
+        "name": "Darius",
+        "sprite": "champion0.png",
+        "x": 48,
+        "y": 96
+    },
+    "126": {
+        "name": "Jayce",
+        "sprite": "champion1.png",
+        "x": 336,
+        "y": 48
+    },
+    "127": {
+        "name": "Lissandra",
+        "sprite": "champion2.png",
+        "x": 336,
+        "y": 0
+    },
+    "131": {
+        "name": "Diana",
+        "sprite": "champion0.png",
+        "x": 96,
+        "y": 96
+    },
+    "133": {
+        "name": "Quinn",
+        "sprite": "champion3.png",
+        "x": 144,
+        "y": 0
+    },
+    "134": {
+        "name": "Syndra",
+        "sprite": "champion4.png",
+        "x": 0,
+        "y": 0
+    },
+    "136": {
+        "name": "AurelionSol",
+        "sprite": "champion0.png",
+        "x": 0,
+        "y": 48
+    },
+    "141": {
+        "name": "Kayn",
+        "sprite": "champion1.png",
+        "x": 336,
+        "y": 96
+    },
+    "142": {
+        "name": "Zoe",
+        "sprite": "champion5.png",
+        "x": 336,
+        "y": 0
+    },
+    "143": {
+        "name": "Zyra",
+        "sprite": "champion5.png",
+        "x": 384,
+        "y": 0
+    },
+    "145": {
+        "name": "Kaisa",
+        "sprite": "champion1.png",
+        "x": 0,
+        "y": 96
+    },
+    "147": {
+        "name": "Seraphine",
+        "sprite": "champion3.png",
+        "x": 336,
+        "y": 48
+    },
+    "150": {
+        "name": "Gnar",
+        "sprite": "champion1.png",
+        "x": 240,
+        "y": 0
+    },
+    "154": {
+        "name": "Zac",
+        "sprite": "champion5.png",
+        "x": 96,
+        "y": 0
+    },
+    "157": {
+        "name": "Yasuo",
+        "sprite": "champion4.png",
+        "x": 384,
+        "y": 96
+    },
+    "161": {
+        "name": "Velkoz",
+        "sprite": "champion4.png",
+        "x": 336,
+        "y": 48
+    },
+    "163": {
+        "name": "Taliyah",
+        "sprite": "champion4.png",
+        "x": 96,
+        "y": 0
+    },
+    "164": {
+        "name": "Camille",
+        "sprite": "champion0.png",
+        "x": 336,
+        "y": 48
+    },
+    "166": {
+        "name": "Akshan",
+        "sprite": "champion0.png",
+        "x": 144,
+        "y": 0
+    },
+    "201": {
+        "name": "Braum",
+        "sprite": "champion0.png",
+        "x": 240,
+        "y": 48
+    },
+    "202": {
+        "name": "Jhin",
+        "sprite": "champion1.png",
+        "x": 384,
+        "y": 48
+    },
+    "203": {
+        "name": "Kindred",
+        "sprite": "champion2.png",
+        "x": 0,
+        "y": 0
+    },
+    "221": {
+        "name": "Zeri",
+        "sprite": "champion5.png",
+        "x": 192,
+        "y": 0
+    },
+    "222": {
+        "name": "Jinx",
+        "sprite": "champion1.png",
+        "x": 432,
+        "y": 48
+    },
+    "223": {
+        "name": "TahmKench",
+        "sprite": "champion4.png",
+        "x": 48,
+        "y": 0
+    },
+    "234": {
+        "name": "Viego",
+        "sprite": "champion4.png",
+        "x": 0,
+        "y": 96
+    },
+    "235": {
+        "name": "Senna",
+        "sprite": "champion3.png",
+        "x": 288,
+        "y": 48
+    },
+    "236": {
+        "name": "Lucian",
+        "sprite": "champion2.png",
+        "x": 384,
+        "y": 0
+    },
+    "238": {
+        "name": "Zed",
+        "sprite": "champion5.png",
+        "x": 144,
+        "y": 0
+    },
+    "240": {
+        "name": "Kled",
+        "sprite": "champion2.png",
+        "x": 48,
+        "y": 0
+    },
+    "245": {
+        "name": "Ekko",
+        "sprite": "champion0.png",
+        "x": 240,
+        "y": 96
+    },
+    "246": {
+        "name": "Qiyana",
+        "sprite": "champion3.png",
+        "x": 96,
+        "y": 0
+    },
+    "254": {
+        "name": "Vi",
+        "sprite": "champion4.png",
+        "x": 432,
+        "y": 48
+    },
+    "266": {
+        "name": "Aatrox",
+        "sprite": "champion0.png",
+        "x": 0,
+        "y": 0
+    },
+    "267": {
+        "name": "Nami",
+        "sprite": "champion2.png",
+        "x": 432,
+        "y": 48
+    },
+    "268": {
+        "name": "Azir",
+        "sprite": "champion0.png",
+        "x": 48,
+        "y": 48
+    },
+    "350": {
+        "name": "Yuumi",
+        "sprite": "champion5.png",
+        "x": 48,
+        "y": 0
+    },
+    "360": {
+        "name": "Samira",
+        "sprite": "champion3.png",
+        "x": 192,
+        "y": 48
+    },
+    "412": {
+        "name": "Thresh",
+        "sprite": "champion4.png",
+        "x": 288,
+        "y": 0
+    },
+    "420": {
+        "name": "Illaoi",
+        "sprite": "champion1.png",
+        "x": 48,
+        "y": 48
+    },
+    "421": {
+        "name": "RekSai",
+        "sprite": "champion3.png",
+        "x": 288,
+        "y": 0
+    },
+    "427": {
+        "name": "Ivern",
+        "sprite": "champion1.png",
+        "x": 144,
+        "y": 48
+    },
+    "429": {
+        "name": "Kalista",
+        "sprite": "champion1.png",
+        "x": 48,
+        "y": 96
+    },
+    "432": {
+        "name": "Bard",
+        "sprite": "champion0.png",
+        "x": 96,
+        "y": 48
+    },
+    "497": {
+        "name": "Rakan",
+        "sprite": "champion3.png",
+        "x": 192,
+        "y": 0
+    },
+    "498": {
+        "name": "Xayah",
+        "sprite": "champion4.png",
+        "x": 240,
+        "y": 96
+    },
+    "516": {
+        "name": "Ornn",
+        "sprite": "champion2.png",
+        "x": 384,
+        "y": 96
+    },
+    "517": {
+        "name": "Sylas",
+        "sprite": "champion3.png",
+        "x": 432,
+        "y": 96
+    },
+    "518": {
+        "name": "Neeko",
+        "sprite": "champion2.png",
+        "x": 96,
+        "y": 96
+    },
+    "523": {
+        "name": "Aphelios",
+        "sprite": "champion0.png",
+        "x": 384,
+        "y": 0
+    },
+    "526": {
+        "name": "Rell",
+        "sprite": "champion3.png",
+        "x": 336,
+        "y": 0
+    },
+    "555": {
+        "name": "Pyke",
+        "sprite": "champion3.png",
+        "x": 48,
+        "y": 0
+    },
+    "711": {
+        "name": "Vex",
+        "sprite": "champion4.png",
+        "x": 384,
+        "y": 48
+    },
+    "777": {
+        "name": "Yone",
+        "sprite": "champion4.png",
+        "x": 432,
+        "y": 96
+    },
+    "875": {
+        "name": "Sett",
+        "sprite": "champion3.png",
+        "x": 384,
+        "y": 48
+    },
+    "876": {
+        "name": "Lillia",
+        "sprite": "champion2.png",
+        "x": 288,
+        "y": 0
+    },
+    "887": {
+        "name": "Gwen",
+        "sprite": "champion1.png",
+        "x": 384,
+        "y": 0
+    },
+    "888": {
+        "name": "Renata",
+        "sprite": "champion3.png",
+        "x": 384,
+        "y": 0
+    }
+}

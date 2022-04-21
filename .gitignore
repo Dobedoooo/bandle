@@ -8,3 +8,8 @@ dist-ssr
 tmp
 **/.tmp
 release
+
+CHANGELOG.md
+Dockerfile
+electron-builder.json5
+LICENSE

@@ -1,0 +1,14 @@
+@import 'mathsass';
+
+$E:     2.718281828459045;
+$PI:    3.141592653589793;
+$LN2:   0.6931471805599453;
+$SQRT2: 1.4142135623730951;
+
+@function spring-wobbly($t) {
+    @return -0.5 * pow($E, (-6 * $t)) * (-2 * pow($E, (6 * $t)) + sin(12 * $t) + 2 * cos(12 * $t))
+}
+
+@function lerp($a, $b, $p) {
+    @return $a + $p * ($b - $a)
+}

@@ -1,7 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './samples/node-api'
+import store from './store'
+import router from './router'
 
 createApp(App)
-  .mount('#app')
-  .$nextTick(window.removeLoading)
+	.use(router)
+	.use(store)
+	.mount('#app')
+	.$nextTick(window.removeLoading)

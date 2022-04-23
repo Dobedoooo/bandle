@@ -19,16 +19,42 @@ type matchConfig = {
     endIndex: number
 }
 
+const RIOT_GAMES_PEM = `-----BEGIN CERTIFICATE-----
+MIIEIDCCAwgCCQDJC+QAdVx4UDANBgkqhkiG9w0BAQUFADCB0TELMAkGA1UEBhMC
+VVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFTATBgNVBAcTDFNhbnRhIE1vbmljYTET
+MBEGA1UEChMKUmlvdCBHYW1lczEdMBsGA1UECxMUTG9MIEdhbWUgRW5naW5lZXJp
+bmcxMzAxBgNVBAMTKkxvTCBHYW1lIEVuZ2luZWVyaW5nIENlcnRpZmljYXRlIEF1
+dGhvcml0eTEtMCsGCSqGSIb3DQEJARYeZ2FtZXRlY2hub2xvZ2llc0ByaW90Z2Ft
+ZXMuY29tMB4XDTEzMTIwNDAwNDgzOVoXDTQzMTEyNzAwNDgzOVowgdExCzAJBgNV
+BAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRUwEwYDVQQHEwxTYW50YSBNb25p
+Y2ExEzARBgNVBAoTClJpb3QgR2FtZXMxHTAbBgNVBAsTFExvTCBHYW1lIEVuZ2lu
+ZWVyaW5nMTMwMQYDVQQDEypMb0wgR2FtZSBFbmdpbmVlcmluZyBDZXJ0aWZpY2F0
+ZSBBdXRob3JpdHkxLTArBgkqhkiG9w0BCQEWHmdhbWV0ZWNobm9sb2dpZXNAcmlv
+dGdhbWVzLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKoJemF/
+6PNG3GRJGbjzImTdOo1OJRDI7noRwJgDqkaJFkwv0X8aPUGbZSUzUO23cQcCgpYj
+21ygzKu5dtCN2EcQVVpNtyPuM2V4eEGr1woodzALtufL3Nlyh6g5jKKuDIfeUBHv
+JNyQf2h3Uha16lnrXmz9o9wsX/jf+jUAljBJqsMeACOpXfuZy+YKUCxSPOZaYTLC
+y+0GQfiT431pJHBQlrXAUwzOmaJPQ7M6mLfsnpHibSkxUfMfHROaYCZ/sbWKl3lr
+ZA9DbwaKKfS1Iw0ucAeDudyuqb4JntGU/W0aboKA0c3YB02mxAM4oDnqseuKV/CX
+8SQAiaXnYotuNXMCAwEAATANBgkqhkiG9w0BAQUFAAOCAQEAf3KPmddqEqqC8iLs
+lcd0euC4F5+USp9YsrZ3WuOzHqVxTtX3hR1scdlDXNvrsebQZUqwGdZGMS16ln3k
+WObw7BbhU89tDNCN7Lt/IjT4MGRYRE+TmRc5EeIXxHkQ78bQqbmAI3GsW+7kJsoO
+q3DdeE+M+BUJrhWorsAQCgUyZO166SAtKXKLIcxa+ddC49NvMQPJyzm3V+2b1roP
+SvD2WV8gRYUnGmy/N0+u6ANq5EsbhZ548zZc+BI4upsWChTLyxt2RxR7+uGlS1+5
+EcGfKZ+g024k/J32XP4hdho7WYAS2xMiV83CfLR/MNi8oSMaVQTdKD8cpgiWJk3L
+XWehWA==
+-----END CERTIFICATE-----`
+
 // 封装了 auth https http2
-function gotSth(auth: string, url: string, http2 = false) {
-    return got(url, {
+function gotSth(auth: string, url: string, options = {}) {
+    return got(url, Object.assign({
         headers: { Authorization: toBase64(auth) },
         https: { 
             // rejectUnauthorized: false,
-            certificateAuthority: fs.readFileSync('riotgames.pem')
+            certificateAuthority: RIOT_GAMES_PEM
         },
-        http2
-    })
+        http2: true
+    }, options))
 }
 
 // 游戏版本数组
@@ -45,7 +71,7 @@ function getLolSummonerV1CurrentSummoner(clientInfo:lcu): Promise<any> {
 // 历史对局
 function getLolMatchHistoryV3MatchlistAccountByAccountId(clientInfo: lcu, accountId: number, config: matchConfig): Promise<any> {
     const url = `${HOST}:${clientInfo.port}${URL.matchHistory}${accountId}?begIndex=${config.begIndex}&endIndex=${config.endIndex}`
-    return gotSth(clientInfo.auth, url, true).json()
+    return gotSth(clientInfo.auth, url).json()
     
 }
 
@@ -64,7 +90,7 @@ function getIcon(ver: string, type: string, iconId: number) {
 // 对局详情
 function getLolMatchHistoryV1GamesByGameId(clientInfo: lcu, gameId: number): Promise<any> {
     const url = `${HOST}:${clientInfo.port}${URL.game}${gameId}`
-    return gotSth(clientInfo.auth, url, true).json()
+    return gotSth(clientInfo.auth, url).json()
 }
 
 // JSON: summoner.json champion.json item.json
@@ -94,12 +120,7 @@ function getFromPath(clientInfo: lcu, path: string) {
 // 接受对局
 function accept(clientInfo: lcu) {
     const url = `${HOST}:${clientInfo.port}${URL.accept}`
-    return got(url, {
-        headers: { Authorization: toBase64(clientInfo.auth) },
-        https: { rejectUnauthorized: false },
-        http2: true,
-        method: 'POST'
-    }).json()
+    return gotSth(clientInfo.auth, url, { method: 'POST' }).json()
 }
 
 export { 

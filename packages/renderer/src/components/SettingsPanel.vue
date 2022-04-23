@@ -1,12 +1,15 @@
 <template>
-    <div class="settings-container" :style="{
-        animation: props.switch ? '1s linear 0s 1 normal forwards running panelDown' : 'none',
-    }" id="root" @animationend="end()">
+    <div class="settings-container pd-20 no-sel" id="root" @animationend="end">
+        <div class="fs-22">设置</div>
         <div>
             <span>自动接受对局</span>
-            <Switch :active="state.autoAcceptSwitch"></Switch>
+            <Switch v-model:flag="busiState.autoAccept" :size="'medium'"></Switch>
         </div>
-        <div class="close cur" @click="emitClose()">❌</div>
+        <div>
+            <span>召唤师信息监控</span>
+            <!-- <Switch :size="'medium'"></Switch> -->
+        </div>
+        <div :class="['close', 'cur']" @click="emitClose">❌</div>
         <div class="bottom-line"></div>
     </div>
 </template>
@@ -24,37 +27,59 @@ export default defineComponent({
         Switch
     },
     props: {
-        switch: { default: false, type: Boolean }
+        flag: Boolean
     },
     setup(props, { emit }) {
 
-        const state = reactive({
+        // 面板开关动画
+        const state = reactive({ 
             root: document.getElementById('root'),
-            autoAcceptSwitch: false
+            openFlag: computed(() => props.flag),
+            closable: false,
         })
-
         watchEffect(() => {
-            if(!props.switch && state.root) {
-                state.root.style.transform = 'translate3d(0, 0, 0)'
-                state.root.style.transition = 'transform .15s ease-in'
-            }
+            // if(!state.openFlag && state.root) {
+            //     state.root.style.transform = 'translate3d(0, 0, 0)'
+            //     state.closable = false
+            // }
+        })
+        function end() {
+            // state.root = document.getElementById('root')
+            // if(state.root) {
+            //     console.log('end');
+            //     state.root.style.animation = 'none'
+            //     state.root.style.transform = 'translate3d(0, 440px, 0)'
+            //     state.closable = true
+            //     emit('readyToClose')
+            //     console.log(state.root.style.animation = 'none');
+                
+            // }
+        }
+        const emitClose = () => emit('close', false)
+       
+        // 
+        const busiState = reactive({
+            autoAccept: false,
+            summonerChange: false,
         })
 
-        function end() {
-            state.root = document.getElementById('root')
-            if(state.root) {
-                state.root.style.animation = 'none'
-                state.root.style.transform = 'translate3d(0, 440px, 0)'
-            }
-        }
-
-        function emitClose() {
-            emit('update:switch', false)
-        }
+        // function autoAcceptSwitch(flag: boolean) {  }
+        function summonerSwitch(flag: boolean) { busiState.summonerChange = flag }
         
-        onMounted(() => {})
+        onMounted(() => {
+            // console.log(autoAcceptSwitch.value)
+        })
 
-        return { props, end, state, emitClose }
+        return { 
+            props, 
+            end, 
+            state, 
+            emitClose, 
+            summonerSwitch,
+            busiState,
+            store,
+        }
+
     }
 })
 </script>
@@ -62,20 +87,23 @@ export default defineComponent({
 <style lang="scss" scoped>
 
 .settings-container {
-    position: absolute;
+    position: relative;
     width: 750px;
     height: 350px;
-    top: -420px;
-    left: 185px;
-    z-index: 201;
-    background-color: rgba(255, 255, 255, .3);
+    box-sizing: border-box;
+    background-color: rgba($color: #fff, $alpha: .5);
     backdrop-filter: saturate(250%) blur(25px);
-    box-shadow: 0 10px 25px rgb(0 0 0 / 10%);
+    box-shadow: 0 0px 25px rgb(0 0 0 / 10%);
     border-radius: 10px;
+    transition: transform .15s ease-in;
     .close {
         position: absolute;
-        top: 0px;
-        right: 0px;
+        top: 10px;
+        right: 10px;
+        transition: text-shadow .15s;
+        &:hover {
+            text-shadow: 0 0px 5px #c0392b;
+        }
     }
     .bottom-line {
         width: 100%;

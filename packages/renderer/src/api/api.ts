@@ -1,5 +1,6 @@
 import got from 'got'
 import { lcu, toBase64 } from '../utils/utils'
+import fs from 'fs'
 
 const HOST: string = 'https://127.0.0.1'
 const URL = {
@@ -22,13 +23,16 @@ type matchConfig = {
 function gotSth(auth: string, url: string, http2 = false) {
     return got(url, {
         headers: { Authorization: toBase64(auth) },
-        https: { rejectUnauthorized: false },
+        https: { 
+            // rejectUnauthorized: false,
+            certificateAuthority: fs.readFileSync('riotgames.pem')
+        },
         http2
     })
 }
 
 // 游戏版本数组
-function getCurrentVersion() {
+function getCurrentVersion(): Promise<string[]> {
     return got(`${URL.ddragon}/api/versions.json`).json()
 }
 
@@ -88,14 +92,14 @@ function getFromPath(clientInfo: lcu, path: string) {
 }
 
 // 接受对局
-function accept(clientInfo: lcu): void {
+function accept(clientInfo: lcu) {
     const url = `${HOST}:${clientInfo.port}${URL.accept}`
-    got(url, {
+    return got(url, {
         headers: { Authorization: toBase64(clientInfo.auth) },
         https: { rejectUnauthorized: false },
         http2: true,
         method: 'POST'
-    })
+    }).json()
 }
 
 export { 

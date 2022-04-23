@@ -104,8 +104,18 @@
 .mgb-40 { margin-bottom: 40px; }
 
 .pdl-30 { padding-left: 30px; }
+
 .pdt-10 { padding-top: 10px; }
+
 .pdb-10 { padding-bottom: 10px; }
+
+$pd: 40;
+@while $pd > 5 {
+    .pd-#{$pd} {
+        padding: #{$pd}px;
+    }
+    $pd: $pd - 5
+}
 
 .fs-10 {font-size: 10px;}
 .fs-12 {font-size: 12px;}
@@ -116,6 +126,8 @@
 .fs-18 {font-size: 18px;}
 .fs-19 {font-size: 19px;}
 .fs-20 {font-size: 20px;}
+.fs-21 {font-size: 21px;}
+.fs-22 {font-size: 22px;}
 
 .txt-align-right { text-align: right; }
 .txt-hover-dec:hover { text-decoration: underline; }

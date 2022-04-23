@@ -39,8 +39,8 @@ async function createWindow() {
 	})
 
   	// vue-devtools
-  	const vue_devtools_path = 'C:\\Users\\seabiscuit\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1\\Extensions\\nhdogjmejiglipccpnnnanhbledajbpd\\6.1.4_0'
-  	await session.defaultSession.loadExtension(vue_devtools_path, { allowFileAccess: true })
+  	const vue_devtools_path = 'C:\\Users\\seabiscuit\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1\\Extensions\\nhdogjmejiglipccpnnnanhbledajbpd\\6.1.4_1'
+  	session.defaultSession.loadExtension(vue_devtools_path, { allowFileAccess: true }).then(msg => process.stdout.write('load vue_devtools')).catch(e => {})
   
 	if (app.isPackaged) {
 		win.loadFile(join(__dirname, '../renderer/index.html'))
@@ -99,13 +99,14 @@ ipcMain.on('close', () => {
 })
 
 let ws : RiotWsProtocol | null = null
-ipcMain.on('buildWs', (event, arg) => {
+ipcMain.on('buildWs', (event, arg: string) => {
 	ws = new RiotWsProtocol(arg)
 	ws.addEventListener('open', () =>  event.reply('built') )
 })
 
-ipcMain.on('subscribe', (event, arg) => {
-	ws?.subscribe(arg, (payload: any) => {
-		win?.webContents.send(arg, JSON.stringify(payload))
+ipcMain.handle('subscribe', (e, event: string) => {
+	ws?.subscribe(event, (payload: any) => {
+		win?.webContents.send(event, JSON.stringify(payload))
 	})
+	return event
 })

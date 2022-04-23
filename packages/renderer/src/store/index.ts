@@ -17,14 +17,14 @@ export default createStore({
             summonerSprite: {},
             items: {},
             itemSprite: {},
-            settingsSwitch: false,
             wsState: '0',
             defaultSubscribe: [
                 'OnJsonApiEvent_lol-summoner_v1_current-summoner',
 				'OnJsonApiEvent_lol-matchmaking_v1_ready-check'
             ],
             subscribed: [] as string[],
-            listend: [] as string[]
+            listend: [] as string[],
+            webSocketInfo: [] as string[],
         }
     },
     mutations: {
@@ -71,9 +71,6 @@ export default createStore({
         setItemsSprite(state: any, payload) {
             state.itemSprite = payload
         },
-        setSettingsSwitch(state: any, payload) {
-            state.settingsSwitch = payload
-        },
         setWsState(state: any, payload) {
             state.wsState = payload
         },
@@ -82,6 +79,9 @@ export default createStore({
         },
         appendListend(state: any, payload) {
             state.listend.push(payload)
+        },
+        appendWebSocketInfo(state: any, payload: string) {
+            state.webSocketInfo.push(payload)
         }
     }
 })

@@ -4,13 +4,13 @@
 			<img src="../../assets/images/LoL_icon.png" draggable="false">
 		</div>
 		<div class="mgb-20 color-darkgold loading-txt">
-			<span :class="{'color-pumpkin': state.loading[state.sysStatus].err}">{{ state.loading[state.sysStatus].text }}</span>
-			<span v-if="state.loading[state.sysStatus].err" class="cur retry" @click="reload()">👉<span class="txt-hover-dec">再试一次</span></span>
+			<span :class="{'color-pumpkin': loading[state.sysStatus].err}">{{ loading[state.sysStatus].text }}</span>
+			<span v-if="loading[state.sysStatus].err" class="cur retry" @click="reload()">👉<span class="txt-hover-dec">再试一次</span></span>
 		</div>
 		<div class="loading-bar">
 			<BarLoading :width="300" borderColor="#666" :color="['#005a82', '#6bc8d2']" :process="state.processNum"></BarLoading>
 		</div>
-		<GlobalFunc></GlobalFunc>
+		<GlobalFunc :readyToConnect="state.clientReady"></GlobalFunc>
 	</div>
 </template>
 
@@ -34,7 +34,6 @@ import {
 	getSprite,
 	getPerks,
 	getJson,
-	accept
 } from '../../api/api'
 
 import { ipcRenderer } from 'electron';
@@ -43,27 +42,34 @@ export default defineComponent({
 	name: 'index',
 	components: {
 		BarLoading,
-		GlobalFunc
+		GlobalFunc,
 	},
 	setup() {
 
 		const router = useRouter()
-
-		const state: any = reactive({
+		
+		interface Loading {
+			[key: string]: {
+				err: boolean
+				text: string
+			}
+		}
+		const loading: Loading = {
+			'init': { err: false, text: '初始化' },
+			'inProcess': { err: false, text: '💬 加载中...' },
+			'ready': { err: false, text: '就绪' },
+			'err': { err: true, text: '意料之外的错误' },
+			'no-game': { err: true, text: '并没有检测到客户端' }
+		}
+		const state = reactive({
 			currentVersion: '',
 			clientInfo: {
 				port: '',
 				auth: '',
-				err: ''
-			},
-			sysStatus: 'init',
-			loading: {
-				'init': { err: false, text: '初始化' },
-				'inProcess': { err: false, text: '💬 加载中...' },
-				'ready': { err: false, text: '就绪' },
-				'err': { err: true, text: '意料之外的错误' },
-				'no-game': { err: true, text: '并没有检测到客户端' }
-			},
+				err: false
+			} as lcu,
+			clientReady: false,
+			sysStatus: 'init' as keyof typeof loading,
 			process: {						// 进度依赖项
 				connect: false,
 				champJson: false,
@@ -73,7 +79,7 @@ export default defineComponent({
 			},
 			processNum: computed(() => {	// 进度
 				let tmpNum = 0
-				let tmpArr = Object.entries(state.process)
+				let tmpArr: [string, boolean][] = Object.entries(state.process)
 				for(const [key, value] of tmpArr) {
 					value && tmpNum++
 				}
@@ -96,7 +102,7 @@ export default defineComponent({
 		}
 
 		// 进度控制
-		function processControl(which: string) {
+		function processControl(which: keyof typeof state.process) {
 			state.process[which] = true
 		}
 		// 发生错误
@@ -107,39 +113,37 @@ export default defineComponent({
 		// 回滚 process
 		function rollBack() {
 			for(let e in state.process) {
-				state.process[e] = false
+				state.process[e as keyof typeof state.process] = false
 			}
 		}
 		// 写入版本信息
 		async function setVersion() {
-			state.currentVersion = (await getCurrentVersion() as string[])[0];
+			state.currentVersion = (await getCurrentVersion())[0];
 			store.commit('setVersion', state.currentVersion)
-
 		}
 		// 检测游戏进程
 		async function detectGame() {
 			// 进程正在运行则设系统状态为 inProcess，否则设为 no-game
-			await isGameOn().then(flag => {
-				if(flag) {
-					state.sysStatus = 'inProcess'
-				} else {
-					error('no-game')
-				}
-			})
+			const flag: boolean = await isGameOn()
+			if(flag) {
+				state.sysStatus = 'inProcess'
+			} else {
+				error('no-game')
+			}
 		}
 		// 端口port 和 口令auth
 		async function setClientInfo() {
 			if(state.sysStatus !== 'inProcess') return
-			await getPortAndAuth().then((data: any): void => {
-				if(data.err) {
-					error('no-game')
-					
-				} else {
-					state.clientInfo = data
-					store.commit('setClientInfo', state.clientInfo)
-					processControl('connect')
-				}
-			})
+			const data: lcu = await getPortAndAuth()
+			if(data.err) {
+				error('no-game')
+			} else {
+				state.clientInfo = data
+				// 通知 GlobalFunc 组件可以通信
+				state.clientReady = true
+				store.commit('setClientInfo', state.clientInfo)
+				processControl('connect')
+			}
 		}
 				
 		interface Map {
@@ -295,7 +299,7 @@ export default defineComponent({
 			}
 		})
 
-		return { state, reload }
+		return { state, reload, loading }
 
 	},
 	

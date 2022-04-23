@@ -7,7 +7,7 @@ type lcu =  {
 }
 
 // 通过命令行查看游戏是否正在运行
-function isGameOn() {
+function isGameOn(): Promise<boolean> {
     return new Promise((resolve, reject) => {
         const cmd:string = 'tasklist -V|findstr "LeagueClientUx.exe"'
         exec(cmd, { maxBuffer: 1024 * 2000 }, (err, stdout, stderr) => {
@@ -22,7 +22,7 @@ function isGameOn() {
 }
 
 // 通过命令行获取 league client 端口和密码
-function getPortAndAuth() {
+function getPortAndAuth(): Promise<lcu> {
     return new Promise((resolve, reject) =>{
         const cmd:string = "wmic PROCESS WHERE name='LeagueClientUx.exe' GET commandline"
         let info:lcu = { port: '', auth: '', err: false }
@@ -48,4 +48,13 @@ function unique(array: any[]) {
     return Array.from(new Set(array))
 }
 
-export { lcu, getPortAndAuth, isGameOn, toBase64, unique }
+// 向主进程发送订阅事件消息
+function subscribe() {
+
+}
+// 向主进程发送取消订阅消息
+function ubSsubscribe() {
+    
+}
+
+export { lcu, getPortAndAuth, isGameOn, toBase64, unique, subscribe, ubSsubscribe }

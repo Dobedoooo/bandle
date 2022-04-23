@@ -66,7 +66,7 @@ export default defineComponent({
 
 		// 遮罩开关
 		const coverOff = () => {
-			return
+			// return
 			store.commit('setSettingsSwitch', false)
 		}
 

@@ -1,17 +1,12 @@
 <template>
-	<div>
+	<div class="h-100p">
 		<div class="container">
 			<div class="left fl">
 				<BasicInfo v-model:gameDetail="state.gameDetail"></BasicInfo>
 			</div>
 			<div class="right fr">
-                <div class="cover" :style="{
-                    opacity: state.cover ? '1' : '0',
-                    zIndex: state.cover ? '9999' : '-1',
-                    backdropFilter: `blur(${state.cover ? 2 : 0}px)`
-                }"></div>
                 <div class="head">
-                    <div class="settings cur no-sel" @click="settings()">⚙️</div>
+                    <div class="settings cur no-sel" @click="settings">⚙️</div>
                 </div>
                 <div class="content">
                     <GameDetails :game="state.gameDetail" v-model:loading="state.cover">
@@ -19,16 +14,19 @@
                     </GameDetails>
                 </div>
 			</div>
-            <div class="settings">
-                <SettingsPanel v-model:switch="state.settingsSwitch"></SettingsPanel>
-            </div>
+            <SpringAnimation :on="settingsSwitch" type="down" :range="[0, 450]" @animationEnd="setReady" style="position: relative; z-index: 201;">
+                <div class="settings-panel">
+                    <SettingsPanel @close="coverOff"></SettingsPanel>
+                </div>
+            </SpringAnimation>
             <div class="no-sel fs-12 version" v-if="store.state.version">V{{ store.state.version }}</div>
 		</div>
+        <div class="cover" :style="coverStyle" @click="coverOff"></div>
 	</div>
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent, provide, inject, computed, onMounted, watchEffect } from 'vue'
+import { ref, reactive, defineComponent, provide, inject, computed, onMounted, watchEffect, CSSProperties } from 'vue'
 
 // vuex
 import store from '../../store'
@@ -38,6 +36,7 @@ import RingLoading from '../../components/RingLoading.vue'
 import GameDetails from '../../components/GameDetails.vue'
 import BasicInfo from '../../components/Basic.vue'
 import SettingsPanel from '../../components/SettingsPanel.vue'
+import SpringAnimation from '../../components/SpringAnimation.vue'
 
 // api
 import {
@@ -54,14 +53,14 @@ export default defineComponent({
         GameDetails,
         BasicInfo,
         SettingsPanel,
+        SpringAnimation,
     },
 	setup() {
         
-		const state: any = reactive({
+		const state = reactive({
             gameDetail: {},
             cover: false,
-            settingsSwitch: false,
-            summoner: {},					// 召唤师信息
+            summoner: {} as any,					// 召唤师信息
 			ranked: {},						// 排位信息
 			macthData: {},					// 对局信息
 			matchConfig: {
@@ -70,19 +69,12 @@ export default defineComponent({
 			},
 		})
 
-        
-        const settings = () => state.settingsSwitch = true
-        
-        watchEffect(() => {
-            store.commit('setSettingsSwitch', state.settingsSwitch)
-        })
-
         // 当前召唤师 不提交 mutation
 		async function setSummoner() {
             try {
                 state.summoner = await getLolSummonerV1CurrentSummoner(store.state.clientInfo)
             } catch(e) {
-                console.log('请求召唤师信息时出错')
+                console.error('请求召唤师信息时出错')
             }
 		}
 		// 对局
@@ -91,7 +83,7 @@ export default defineComponent({
                 state.macthData = await getLolMatchHistoryV3MatchlistAccountByAccountId(store.state.clientInfo, state.summoner.accountId, state.matchConfig)
                 store.commit('setMatch', state.macthData)
             } catch(e) {
-                console.log('请求比赛信息时出错')
+                console.error('请求比赛信息时出错')
             }
 		}
 		// 排位
@@ -100,7 +92,7 @@ export default defineComponent({
                 state.ranked = await getLolRankedV1RankedStatsByPuuid(store.state.clientInfo, state.summoner.puuid)
                 store.commit('setRanked', state.ranked)
             } catch(e) {
-                console.log('请求排位信息时出错')
+                console.error('请求排位信息时出错')
             }
 		}
 		// 头像
@@ -109,7 +101,7 @@ export default defineComponent({
                 const url = URL.createObjectURL(new Blob([buffer]))
                 state.summoner.profileIconUrl = url
                 store.commit('setSummoner', state.summoner)
-            }).catch(e => console.log('请求召唤师头像时出错'))
+            }).catch(e => console.error('请求召唤师头像时出错'))
 		}
         const inSomething: any = inject('busy')
 		const idle: any = inject('idle')
@@ -127,10 +119,37 @@ export default defineComponent({
                 
             }
         }
-
         onMounted(init)
 
-		return { state, store, settings }
+        const settingsSwitch = ref(false)
+        const readyToClose = ref(false)
+        const coverStyle = computed((): CSSProperties => {
+            return {
+                opacity: settingsSwitch.value ? '1' : '0',
+                zIndex: settingsSwitch.value ? 200 : -1,
+            }
+        })
+        const settings = () => {
+            settingsSwitch.value = true
+            readyToClose.value = false
+        } 
+        const coverOff = () => {
+            if(readyToClose.value === false) return
+            settingsSwitch.value = false
+        }
+        const setReady = () => readyToClose.value = true
+
+		return { 
+            state, 
+            store, 
+            settings, 
+            settingsSwitch, 
+            coverOff, 
+            setReady, 
+            readyToClose, 
+            coverStyle,
+            // panelClose
+        }
 
 	},
 })
@@ -159,6 +178,10 @@ export default defineComponent({
                 width: 20px;
                 height: 20px;
                 margin: 15px 15px 0 0;
+                transition: text-shadow .15s;
+                &:hover  {
+                    text-shadow: 0 0px 5px silver;
+                }
             }
         }
         .content {
@@ -170,10 +193,10 @@ export default defineComponent({
             left: 0;
             bottom: 0;
             right: 0;
-            background: rgba($color: #fff, $alpha: .3);
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            transition: all .1s linear;
+            margin-top: 38px;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .3));
+            transition: all .25s linear;
+            border-radius: 10px;
         }
     }
     .version {
@@ -182,6 +205,10 @@ export default defineComponent({
         right: -107px;
         color: rgba(0, 0, 0, .3);
     }
-    
+    .settings-panel {
+        position: absolute;
+        top: -487px;
+        left: 185px;
+    }
 }
 </style>

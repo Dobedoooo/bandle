@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import { onMounted, reactive, watchEffect } from 'vue'
+import { defineComponent, onMounted, reactive, watchEffect } from 'vue'
 
 import store from '../store'
 
@@ -14,59 +14,65 @@ import {
     accept
 } from '../api/api'
 
-export default {
+export default defineComponent({
     name: 'globalFunc',
-    setup() {
+    props: {
+        readyToConnect: { require: true, type: Boolean }
+    },
+    setup(props) {
 
-        const state = reactive({
-            eventCallback: {
-                'OnJsonApiEvent_lol-summoner_v1_current-summoner': (): void => {},
-                'OnJsonApiEvent_lol-matchmaking_v1_ready-check': (event: any, message: string): void => {
-                    const msg = JSON.parse(message)
-					if(msg.data === null) {
-						return
-					} else if(msg.data.playerResponse === 'None') {
-						accept(store.state.clientInfo)
-					}
-                }
-            }
-        })
-
-        watchEffect(() => {
-            // webSocket 建立后，订阅默认事件
-            if(store.state.wsState === '1') {
-                store.state.defaultSubscribe.forEach((item: string) => {
-                    if(store.state.subscribed.indexOf(item) !== -1) return
-                    ipcRenderer.send('subscribe', item)
-					store.commit('appendSubscribed', item)
+        // 默认订阅事件触发后所执行函数
+        const summonerChangeCallback = (event: any, message: string) => console.log(JSON.parse(message))
+        // 默认订阅事件触发后所执行函数
+        const matchReadyCheckCallback = (event: any, message: string) => {
+            const msg = JSON.parse(message)
+            if(msg.data === null) {
+                return
+            } else if(msg.data.playerResponse === 'None') {
+                accept(store.state.clientInfo).then(data => {
+                    store.commit('appendWebSocketInfo', 'OnJsonApiEvent_lol-matchmaking_v1_ready-check: 对局已接受')
                 })
             }
-        })
+        }
+        const eventCallback = {
+            'OnJsonApiEvent_lol-summoner_v1_current-summoner': summonerChangeCallback,
+            'OnJsonApiEvent_lol-matchmaking_v1_ready-check': matchReadyCheckCallback
+        }
 
-        function buildWebSocket() {
+        watchEffect(buildWebSocket)
+        async function buildWebSocket() {
             // 获取到客户端信息后，通知主进程 建立 webSokcet
-            if(store.state.clientInfo.port && store.state.clientInfo.auth) {
+            if(props.readyToConnect) {
+                store.commit('appendWebSocketInfo', '正在建立与英雄联盟客户端的连接...')
                 ipcRenderer.send('buildWs', JSON.stringify(store.state.clientInfo))
             }
         }
 
-        watchEffect(buildWebSocket)
-
         function init() {
-            // 监听 “websocket以建立”事件
-            ipcRenderer.on('built', () => store.commit('setWsState', '1'))
-            // 监听默认事件
-            store.state.defaultSubscribe.forEach((item: string) => {
-                if(store.state.listend.indexOf(item) !== -1) return
-                ipcRenderer.on(item, state.eventCallback[item as keyof typeof state.eventCallback])
-                store.commit('appendListend', item)
+            // 监听 “websocket已建立”事件
+            ipcRenderer.on('built', () => {
+                store.commit('appendWebSocketInfo', '连接建立完成')
+                store.commit('setWsState', '1')
+                // 订阅默认事件
+                store.state.defaultSubscribe.forEach(async(item: string) => {
+                    if(store.state.subscribed.indexOf(item) !== -1) return
+                    const response = await ipcRenderer.invoke('subscribe', item)
+                    if(typeof response === 'string') {
+                        store.commit('appendWebSocketInfo', `${response} 已订阅`)
+                        ipcRenderer.on(item, eventCallback[item as keyof typeof eventCallback])
+                        store.commit('appendWebSocketInfo', `${response} 已监听`)
+                        store.commit('appendListend', item)
+                        store.commit('appendSubscribed', item)
+                    }
+                })
             })
+
         }
 
         onMounted(init)
 
     }
-}
+})
 </script>
 
 <style lang="scss" scoped>
